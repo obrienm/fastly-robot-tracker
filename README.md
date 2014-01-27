@@ -1,4 +1,4 @@
---Fastly robot tracker
+### Fastly robot tracker
 
 This was originally used to parse syslogs form Fastly in realtime. However, my advice is to use [Logstash](http://logstash.net/) instead.
 
