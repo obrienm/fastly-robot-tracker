@@ -3,7 +3,6 @@ import Keys._
 import sbtassembly.Plugin._
 import AssemblyKeys._
 import sbtbuildinfo.Plugin._
-import scala.Some
 
 
 object ApplicationBuild extends Build {
@@ -38,7 +37,7 @@ object ApplicationBuild extends Build {
     )
   )
 
-  val main = play.Project(appName, appVersion, settings = buildSettings ++ playArtifactDistSettings ++ standardSettings ++ artifactDistSettings)
+  val main = play.Project(appName, appVersion, settings = buildSettings ++ playArtifactDistSettings ++ standardSettings)
     .settings(resolvers += "Guardian Github Snapshots" at "http://guardian.github.com/maven/repo-releases")
     .settings(
     ivyXML :=
@@ -53,33 +52,4 @@ object ApplicationBuild extends Build {
       }
     }
   )
-
-  /**
-   * artifact creation for teamcity
-   * all of this, just to create a bloody zip!
-   */
-  val artifactZip = TaskKey[File]("artifact-zip", "Builds a deployable zip file")
-
-  lazy val artifactDistSettings = Seq(
-    artifactZip <<= buildDeployArtifact
-  )
-
-  private def buildDeployArtifact = (target, assembly, baseDirectory) map {
-    (target, assembly, baseDirectory) =>
-
-      val resources = Seq(
-        assembly -> "packages/%s/%s".format("fastly-robot-tracker", assembly.getName)
-      )
-
-      val distFile = target / "artifacts.zip"
-
-      if (distFile.exists()) distFile.delete()
-
-      IO.zip(resources, distFile)
-
-      // Tells TeamCity to publish the artifact => leave this println in here
-      println("##teamcity[publishArtifacts '%s => .']" format distFile)
-
-      distFile
-  }
 }
