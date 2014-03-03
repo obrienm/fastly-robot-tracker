@@ -7,11 +7,11 @@ import sbtbuildinfo.Plugin._
 
 object ApplicationBuild extends Build {
 
-  val appName = "fastly-robot-tracker"
+  val appName = "syslog-robot-parser"
   val appVersion = "0.1"
 
   lazy val buildSettings = Defaults.defaultSettings ++ Seq(
-    jarName in assembly := "fastly-robot-tracker.jar",
+    jarName in assembly := "syslog-robot-parser.jar",
     version := "0.1",
     organization := "me.moschops",
     scalaVersion := "2.10.0",
@@ -20,7 +20,7 @@ object ApplicationBuild extends Build {
 
   lazy val playArtifactDistSettings = assemblySettings ++ Seq(
     mainClass in assembly := Some("play.core.server.NettyServer"),
-    jarName in assembly := "fastly-robot-tracker.jar"
+    jarName in assembly := "syslog-robot-parser.jar"
   )
 
   val standardSettings = buildInfoSettings ++ Seq[Setting[_]](

@@ -1,6 +1,6 @@
 <configuration>
 
-    <contextName>fastly-robot-tracker</contextName>
+    <contextName>syslog-robot-parser</contextName>
 
     <appender name="APPLICATION_LOGFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>logs/application.log</file>
